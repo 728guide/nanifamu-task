@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なにふぁむ応援タスク</title>
+<style>
+  body {
+    margin: 0;
+    padding: 20px 0;
+    background: #fdf2f6;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    width: 480px;
+    max-width: 92vw;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(255, 105, 150, 0.15);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #ff8fb3, #ff6f9c);
+    color: #fff;
+    text-align: center;
+    padding: 22px 16px;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+  }
+  .header p {
+    margin: 6px 0 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+  .content {
+    padding: 20px;
+  }
+  .task-card {
+    background: #fff5f8;
+    border: 1px solid #ffd0dd;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .task-title {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: #d6336c;
+    margin-bottom: 6px;
+  }
+  .task-title::before {
+    content: "🎬";
+    margin-right: 6px;
+  }
+  .task-note {
+    font-size: 13px;
+    color: #555;
+    margin: 0 0 10px;
+    line-height: 1.6;
+  }
+  .task-note .highlight {
+    color: #d6336c;
+    font-weight: bold;
+  }
+  a.link-btn {
+    display: block;
+    text-decoration: none;
+    background: #ff6f9c;
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+  a.link-btn:hover {
+    background: #d6336c;
+  }
+  a.link-btn.group-start {
+    margin-top: 18px;
+  }
+  .link-label {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+    margin-bottom: 2px;
+  }
+  .footer-note {
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+    margin-top: 18px;
+    line-height: 1.6;
+  }
+  .checklist {
+    font-size: 12px;
+    color: #999;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>なにふぁむ応援タスク</h1>
+  </div>
+  <div class="content">
+
+    <div class="task-card">
+      <div class="task-title">映画.com 毎日アクセスお願いします</div>
+
+      <a class="link-btn" href="https://eiga.com/movie/105416/" target="_blank" rel="noopener">時給三〇〇円の死神</a>
+
+      <a class="link-btn" href="https://eiga.com/person/295521/" target="_blank" rel="noopener">西畑大吾</a>
+
+      <a class="link-btn group-start" href="https://eiga.com/movie/105584/" target="_blank" rel="noopener">うるわしの宵の月</a>
+
+      <a class="link-btn" href="https://eiga.com/person/301958/" target="_blank" rel="noopener">道枝駿佑</a>
+
+      <a class="link-btn group-start" href="https://eiga.com/movie/104707/" target="_blank" rel="noopener">ブルーロック</a>
+
+      <a class="link-btn" href="https://eiga.com/person/301960/" target="_blank" rel="noopener">高橋恭平</a>
+
+      <a class="link-btn group-start" href="https://eiga.com/movie/106264/" target="_blank" rel="noopener">人生を変えたコント</a>
+
+      <a class="link-btn" href="https://eiga.com/person/295519/" target="_blank" rel="noopener">大橋和也</a>
+
+      <div class="checklist">✅ タップして開くだけでOK／通信環境がある時に◎</div>
+    </div>
+
+    <div class="footer-note">
+      ※非公式のファン制作画像です
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
