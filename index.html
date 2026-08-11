@@ -22,8 +22,8 @@
     overflow: hidden;
   }
   .header {
-    background: linear-gradient(135deg, #71717a, #52525b);
-    color: #fff;
+    background: transparent;
+    color: #27272a;
     text-align: center;
     padding: 22px 16px;
   }
@@ -40,6 +40,32 @@
   .content {
     padding: 20px;
   }
+  .intro-note {
+    background: #f4f4f5;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    color: #27272a;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .freq-badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .freq-daily {
+    background: #3f3f46;
+    color: #fff;
+  }
+  .freq-once {
+    background: #d4d4d8;
+    color: #3f3f46;
+  }
   .task-card {
     background: #fafafa;
     border: 1px solid #e4e4e7;
@@ -52,7 +78,7 @@
     align-items: center;
     font-size: 15px;
     font-weight: bold;
-    color: #52525b;
+    color: #27272a;
     margin-bottom: 6px;
   }
   .task-title::before {
@@ -60,13 +86,87 @@
     margin-right: 6px;
   }
   .task-note {
-    font-size: 13px;
-    color: #555;
+    font-size: 15px;
+    color: #3f3f46;
     margin: 0 0 10px;
     line-height: 1.6;
   }
+  .task-note .note-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1.6;
+  }
+  .task-note .note-row .note-text {
+    display: flex;
+  }
+  .checkin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 8px 2px 4px;
+    border: 1px solid #e4e4e7;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #1e3a5f;
+    vertical-align: middle;
+  }
+  .checkin-badge svg {
+    width: 15px;
+    height: 15px;
+  }
+  .fan-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    background: #f7931e;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .fan-badge svg {
+    width: 14px;
+    height: 14px;
+  }
+  .icon-plain-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 11px;
+  }
+  .icon-plain-badge svg {
+    width: 16px;
+    height: 16px;
+  }
+  .icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 24px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #a3a34a, #8a8a3d);
+    flex-shrink: 0;
+  }
+  .icon-badge svg {
+    width: 16px;
+    height: 16px;
+  }
+  .task-note .note-label {
+    flex-shrink: 0;
+    width: 6.5em;
+    white-space: nowrap;
+  }
   .task-note .highlight {
-    color: #52525b;
+    color: #27272a;
+    font-weight: bold;
+  }
+  .task-note .emphasis-red {
+    color: #dc2626;
     font-weight: bold;
   }
   a.link-btn {
@@ -85,25 +185,57 @@
   a.link-btn:hover {
     background: #3f3f46;
   }
+  a.link-btn.color-purple {
+    background: transparent;
+    border: 2px solid #9333ea;
+    color: #9333ea;
+  }
+  a.link-btn.color-purple:hover {
+    background: #f3e8ff;
+  }
+  a.link-btn.color-red {
+    background: transparent;
+    border: 2px solid #dc2626;
+    color: #dc2626;
+  }
+  a.link-btn.color-red:hover {
+    background: #fee2e2;
+  }
+  a.link-btn.color-pink {
+    background: transparent;
+    border: 2px solid #ec4899;
+    color: #ec4899;
+  }
+  a.link-btn.color-pink:hover {
+    background: #fce7f3;
+  }
+  a.link-btn.color-green {
+    background: transparent;
+    border: 2px solid #16a34a;
+    color: #16a34a;
+  }
+  a.link-btn.color-green:hover {
+    background: #dcfce7;
+  }
   a.link-btn.group-start {
     margin-top: 18px;
   }
   .link-label {
-    font-size: 12px;
-    color: #888;
+    font-size: 14px;
+    color: #52525b;
     margin-top: 10px;
     margin-bottom: 2px;
   }
   .footer-note {
-    font-size: 11px;
-    color: #aaa;
+    font-size: 13px;
+    color: #71717a;
     text-align: center;
     margin-top: 18px;
     line-height: 1.6;
   }
   .checklist {
-    font-size: 12px;
-    color: #999;
+    font-size: 14px;
+    color: #52525b;
     margin-top: 8px;
   }
 </style>
@@ -112,29 +244,116 @@
 <div class="container">
   <div class="header">
     <h1>なにふぁむ応援タスク</h1>
+    <p>映画版</p>
   </div>
   <div class="content">
 
+    <div class="intro-note">まずは無料の会員登録をお願いします</div>
+
     <div class="task-card">
-      <div class="task-title">映画.com 毎日アクセスお願いします</div>
+      <div class="task-title">映画.com</div>
+      <span class="freq-badge freq-daily">毎日</span>
+      <p class="task-note">初回はそれぞれのページで<span class="checkin-badge"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#f97316" stroke-width="2"/><path d="M8 12.5L10.5 15L16 9" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Check-in</span>を押す。<br>2回目からはアクセスするだけでOK。<br>作品ページ・個人ページ共にアクセスがランキングに反映されますので、<span class="emphasis-red">毎日アクセスお願いします</span>。</p>
 
-      <a class="link-btn" href="https://eiga.com/movie/104707/" target="_blank" rel="noopener">ブルーロック</a>
+      <a class="link-btn color-purple" href="https://eiga.com/movie/104707/" target="_blank" rel="noopener">ブルーロック</a>
 
-      <a class="link-btn" href="https://eiga.com/person/301960/" target="_blank" rel="noopener">高橋恭平</a>
+      <a class="link-btn color-purple" href="https://eiga.com/person/301960/" target="_blank" rel="noopener">高橋恭平</a>
 
-      <a class="link-btn group-start" href="https://eiga.com/movie/105416/" target="_blank" rel="noopener">時給三〇〇円の死神</a>
+      <a class="link-btn color-red group-start" href="https://eiga.com/movie/105416/" target="_blank" rel="noopener">時給三〇〇円の死神</a>
 
-      <a class="link-btn" href="https://eiga.com/person/295521/" target="_blank" rel="noopener">西畑大吾</a>
+      <a class="link-btn color-red" href="https://eiga.com/person/295521/" target="_blank" rel="noopener">西畑大吾</a>
 
-      <a class="link-btn group-start" href="https://eiga.com/movie/105584/" target="_blank" rel="noopener">うるわしの宵の月</a>
+      <a class="link-btn color-pink group-start" href="https://eiga.com/movie/105584/" target="_blank" rel="noopener">うるわしの宵の月</a>
 
-      <a class="link-btn" href="https://eiga.com/person/301958/" target="_blank" rel="noopener">道枝駿佑</a>
+      <a class="link-btn color-pink" href="https://eiga.com/person/301958/" target="_blank" rel="noopener">道枝駿佑</a>
 
-      <a class="link-btn group-start" href="https://eiga.com/movie/106264/" target="_blank" rel="noopener">人生を変えたコント</a>
+      <a class="link-btn color-green group-start" href="https://eiga.com/movie/106264/" target="_blank" rel="noopener">人生を変えたコント</a>
 
-      <a class="link-btn" href="https://eiga.com/person/295519/" target="_blank" rel="noopener">大橋和也</a>
+      <a class="link-btn color-green" href="https://eiga.com/person/295519/" target="_blank" rel="noopener">大橋和也</a>
+    </div>
 
-      <div class="checklist">✅ タップして開くだけでOK／通信環境がある時に◎</div>
+    <div class="task-card">
+      <div class="task-title">Filmarks</div>
+      <span class="freq-badge freq-once">一回でOK</span>
+      <div class="task-note">
+        <div class="note-row">
+          <span class="note-text"><span class="note-label">作品ページ：</span>見る前は<span class="highlight">（見たい）</span></span>
+          <span class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L20 5V11C20 16 16.5 20 12 22C7.5 20 4 16 4 11V5L12 2Z" stroke="#f5f0dc" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M12 8V16M8 12H16" stroke="#f5f0dc" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-text"><span class="note-label"></span>見た後は<span class="highlight">（見た）</span>をタップ</span>
+          <span class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12L4.5 8.5C6.8 5.2 9.2 3.5 12 3.5C14.8 3.5 17.2 5.2 19.5 8.5L22 12L19.5 15.5C17.2 18.8 14.8 20.5 12 20.5C9.2 20.5 6.8 18.8 4.5 15.5L2 12Z" stroke="#f5f0dc" stroke-width="1.6" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke="#f5f0dc" stroke-width="1.6"/>
+            </svg>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-text">個人ページ：<span class="highlight">Fan!</span>ボタンをタップ</span>
+          <span class="fan-badge">
+            <svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="9" cy="8" r="3.2"/>
+              <path d="M3 19c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+              <path d="M18 8.5c-1.6 0-2.6 1.1-2.6 2.5 0 1.7 1.5 2.7 2.6 3.7 1.1-1 2.6-2 2.6-3.7 0-1.4-1-2.5-2.6-2.5z"/>
+            </svg>
+            Fan!
+          </span>
+        </div>
+      </div>
+
+      <a class="link-btn color-purple" href="https://filmarks.com/movies/125136" target="_blank" rel="noopener">ブルーロック</a>
+
+      <a class="link-btn color-purple" href="https://filmarks.com/people/255054" target="_blank" rel="noopener">高橋恭平</a>
+
+      <a class="link-btn color-red group-start" href="https://filmarks.com/movies/126820" target="_blank" rel="noopener">時給三〇〇円の死神</a>
+
+      <a class="link-btn color-red" href="https://filmarks.com/people/208372" target="_blank" rel="noopener">西畑大吾</a>
+
+      <a class="link-btn color-pink group-start" href="https://filmarks.com/movies/127321" target="_blank" rel="noopener">うるわしの宵の月</a>
+
+      <a class="link-btn color-pink" href="https://filmarks.com/people/236945" target="_blank" rel="noopener">道枝駿佑</a>
+
+      <a class="link-btn color-green group-start" href="https://filmarks.com/movies/129004" target="_blank" rel="noopener">人生を変えたコント</a>
+
+      <a class="link-btn color-green" href="https://filmarks.com/people/264764" target="_blank" rel="noopener">大橋和也</a>
+    </div>
+
+    <div class="task-card">
+      <div class="task-title">MOVIE WALKER</div>
+      <span class="freq-badge freq-once">一回でOK</span>
+      <div class="task-note">
+        <div class="note-row">
+          <span class="note-text">見る前は<span class="highlight">「みたい」</span></span>
+          <span class="icon-plain-badge">
+            <svg viewBox="0 0 24 24" fill="#dc2626" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21C12 21 4 14.5 4 9.2C4 6.3 6.3 4 9.1 4C10.7 4 12 4.8 12 4.8C12 4.8 13.3 4 14.9 4C17.7 4 20 6.3 20 9.2C20 14.5 12 21 12 21Z"/>
+            </svg>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-text">見た後は<span class="highlight">「みた」</span>をタップ</span>
+          <span class="icon-plain-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12C2 12 5.5 5.5 12 5.5C18.5 5.5 22 12 22 12C22 12 18.5 18.5 12 18.5C5.5 18.5 2 12 2 12Z" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <a class="link-btn color-purple" href="https://press.moviewalker.jp/mv91168/" target="_blank" rel="noopener">ブルーロック</a>
+
+      <a class="link-btn color-red group-start" href="https://press.moviewalker.jp/mv92268/" target="_blank" rel="noopener">時給三〇〇円の死神</a>
+
+      <a class="link-btn color-pink group-start" href="https://press.moviewalker.jp/mv92432/" target="_blank" rel="noopener">うるわしの宵の月</a>
+
+      <a class="link-btn color-green group-start" href="https://press.moviewalker.jp/mv93482/" target="_blank" rel="noopener">人生を変えたコント</a>
     </div>
 
     <div class="footer-note">
