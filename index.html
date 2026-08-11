@@ -92,13 +92,11 @@
     line-height: 1.6;
   }
   .task-note .note-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     line-height: 1.6;
+    margin-bottom: 2px;
   }
   .task-note .note-row .note-text {
-    display: flex;
+    display: inline;
   }
   .checkin-badge {
     display: inline-flex;
@@ -126,6 +124,8 @@
     border-radius: 6px;
     font-size: 13px;
     font-weight: bold;
+    vertical-align: middle;
+    margin-left: 4px;
   }
   .fan-badge svg {
     width: 14px;
@@ -133,10 +133,11 @@
   }
   .icon-plain-badge {
     display: inline-flex;
-    flex-direction: column;
     align-items: center;
     gap: 2px;
     font-size: 11px;
+    vertical-align: middle;
+    margin-left: 4px;
   }
   .icon-plain-badge svg {
     width: 16px;
@@ -146,20 +147,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 24px;
+    width: 26px;
+    height: 22px;
     border-radius: 4px;
     background: linear-gradient(180deg, #a3a34a, #8a8a3d);
-    flex-shrink: 0;
+    vertical-align: middle;
+    margin-left: 4px;
   }
   .icon-badge svg {
     width: 16px;
     height: 16px;
   }
   .task-note .note-label {
-    flex-shrink: 0;
+    display: inline-block;
     width: 6.5em;
-    white-space: nowrap;
   }
   .task-note .highlight {
     color: #27272a;
