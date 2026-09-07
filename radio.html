@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なにふぁむタスク　ラジリク版</title>
+<style>
+  :root {
+    --line: #9ca3af;      /* card border: gray */
+    --line-soft: #d1d5db; /* lighter gray */
+    --text: #111111;      /* body text: black */
+    --bg: #f4f4f5;
+    --card-bg: #ffffff;
+    --arrow-bg: #6b7280;  /* gray accent for arrow buttons */
+    --arrow-bg-dark: #4b5563;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+    padding-bottom: 40px;
+  }
+
+  header {
+    background: #ffffff;
+    padding: 28px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+
+  header p {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 16px 8px;
+  }
+
+  .section-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: #6b7280;
+    font-weight: 700;
+    margin: 0 4px 4px;
+  }
+
+  .section-title {
+    font-size: 19px;
+    font-weight: 800;
+    margin: 0 4px 16px;
+    color: var(--text);
+  }
+
+  ul.card-list {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  a.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--card-bg);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 18px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  a.card:active {
+    background: #f3f4f6;
+    transform: scale(0.99);
+  }
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-station {
+    font-size: 12px;
+    font-weight: 700;
+    color: #6b7280;
+    letter-spacing: 0.02em;
+  }
+
+  .card-name {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .arrow {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--arrow-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+    padding: 24px 16px 8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>なにふぁむタスク　ラジリク版</h1>
+  <p>ラジオリクエスト送り先リンク集</p>
+</header>
+
+<main>
+  <p class="section-eyebrow">REQUEST LINKS</p>
+  <p class="section-title">リクエストフォーム一覧</p>
+
+  <ul class="card-list">
+
+    <li>
+      <a class="card" href="https://www.tfm.co.jp/f/countdownjapan/message" target="_blank" rel="noopener">
+        <div class="card-text">
+          <span class="card-station">TOKYO FM</span>
+          <span class="card-name">JA全農 COUNTDOWN JAPAN</span>
+        </div>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://www.nack5.co.jp/message/270/" target="_blank" rel="noopener">
+        <div class="card-text">
+          <span class="card-station">NACK5</span>
+          <span class="card-name">NACK5</span>
+        </div>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://www.tfm.co.jp/f/atb/form" target="_blank" rel="noopener">
+        <div class="card-text">
+          <span class="card-station">TOKYO FM</span>
+          <span class="card-name">ALL-Time Best</span>
+        </div>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://form.radionikkei.jp/m/program-ranimusic" target="_blank" rel="noopener">
+        <div class="card-text">
+          <span class="card-station">ラジオNIKKEI</span>
+          <span class="card-name">RaNi Music♪</span>
+        </div>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://funky802.com/service/Request/index/member/1712" target="_blank" rel="noopener">
+        <div class="card-text">
+          <span class="card-station">FM802</span>
+          <span class="card-name">OSAKAN HOT 100</span>
+        </div>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://fmfukuoka.co.jp/message/?m=reform" target="_blank" rel="noopener">
+        <div class="card-text">
+          <span class="card-station">FM FUKUOKA</span>
+          <span class="card-name">FM FUKUOKA（メッセージフォーム）</span>
+        </div>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://fmfukuoka.co.jp/message/?m=reform" target="_blank" rel="noopener">
+        <div class="card-text">
+          <span class="card-station">FM FUKUOKA</span>
+          <span class="card-name">BUTCH COUNTDOWN RADIO</span>
+        </div>
+        <span class="arrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </li>
+
+  </ul>
+</main>
+
+<footer>
+  なにふぁむタスク（ラジリク版）
+</footer>
+
+</body>
+</html>
