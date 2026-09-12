@@ -72,7 +72,22 @@
     margin: 0 4px 16px;
   }
 
-  .section-title-row {
+  .legend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 4px 10px;
+  }
+
+  .legend span.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -145,6 +160,7 @@
   }
 
   .dot-green { background: #22c55e; }
+  .dot-red { background: #ef4444; }
 
   .arrow {
     flex-shrink: 0;
@@ -180,6 +196,11 @@
 <main>
   <p class="intro-note">直接リクエストフォームへリンクしている放送局と、番組一覧ページへリンクしている放送局があります。番組一覧ページの場合は、各番組ページにリクエストフォームやメールアドレスが記載されていますので、そちらからリクエストをお願いします。</p>
 
+  <p class="legend">
+    <span class="legend-item"><span class="dot dot-green"></span>初心者向け</span>
+    <span class="legend-item"><span class="dot dot-red"></span>マスト</span>
+  </p>
+
   <div class="section-title-row">
     <p class="section-title">FM局一覧</p>
     <p class="section-note">全21局</p>
@@ -192,8 +213,13 @@
       <span class="arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </a></li>
 
-    <li><a class="card" href="https://www.fmnorth.co.jp/funsafternoon-form/" target="_blank" rel="noopener">
+    <li><a class="card" href="https://www.fmnorth.co.jp/program/" target="_blank" rel="noopener">
       <span class="card-name"><span class="dot dot-green"></span>FM NORTH WAVE</span>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a></li>
+
+    <li><a class="card" href="https://www.fmnorth.co.jp/radiogroove-form2/" target="_blank" rel="noopener">
+      <span class="card-name"><span class="dot dot-red"></span>FM NORTH WAVE　#ラジグル</span>
       <span class="arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </a></li>
 
