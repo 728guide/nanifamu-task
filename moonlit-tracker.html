@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>なにわ男子「Moonlit」予約・交換管理</title>
+<style>
+:root{
+  --pink:#e99ab3; --pink-dark:#d97a9b; --pink-pale:#fdeef2;
+  --bg:#fff8fa; --card:#ffffff; --text:#3a2a30; --sub:#8a7278; --border:#f3d9e2;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#241a1d; --card:#332428; --text:#f5e6ea; --sub:#c9a9b3; --border:#4a333c; --pink-pale:#3a2530;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#241a1d; --card:#332428; --text:#f5e6ea; --sub:#c9a9b3; --border:#4a333c; --pink-pale:#3a2530;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Yu Gothic",sans-serif;}
+header{background:linear-gradient(135deg,var(--pink),var(--pink-dark));color:#fff;padding:18px 16px calc(14px + env(safe-area-inset-top,0px));text-align:center;position:sticky;top:0;z-index:5;}
+header h1{margin:0;font-size:1.1rem;}
+header p{margin:4px 0 0;font-size:0.72rem;opacity:0.9;}
+nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:calc(58px + env(safe-area-inset-top,0px));z-index:4;overflow-x:auto;}
+nav button{flex:1;padding:11px 4px;background:none;border:none;color:var(--sub);font-size:0.82rem;font-weight:600;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;}
+nav button.active{color:var(--pink-dark);border-bottom-color:var(--pink-dark);}
+main{max-width:520px;margin:0 auto;padding:14px 12px 40px;}
+.tab{display:none;}
+.tab.active{display:block;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;}
+.card h2{margin:0 0 10px;font-size:0.95rem;color:var(--pink-dark);}
+label{display:block;font-size:0.78rem;color:var(--sub);margin:8px 0 3px;}
+select,input[type=number],input[type=text]{width:100%;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:0.9rem;}
+.btn{width:100%;padding:11px;margin-top:12px;background:var(--pink-dark);color:#fff;border:none;border-radius:10px;font-size:0.92rem;font-weight:600;cursor:pointer;}
+.btn.secondary{background:none;color:var(--sub);border:1px solid var(--border);margin-top:6px;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:0.85rem;gap:8px;}
+.row:last-child{border-bottom:none;}
+.row .del{color:#c9536a;background:none;border:none;font-size:0.78rem;cursor:pointer;}
+.stat-grid{display:flex;gap:8px;text-align:center;}
+.stat{flex:1;background:var(--pink-pale);border-radius:10px;padding:10px 4px;}
+.stat b{display:block;font-size:1.15rem;color:var(--pink-dark);}
+.stat span{font-size:0.68rem;color:var(--sub);}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+th,td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--border);}
+th{color:var(--sub);font-weight:600;font-size:0.72rem;}
+.tag{display:inline-block;font-size:0.68rem;background:var(--pink-pale);color:var(--pink-dark);padding:2px 7px;border-radius:6px;}
+.have0{color:#c9536a;font-weight:700;}
+.oshi-row{background:var(--pink-pale);}
+.adj{display:flex;gap:6px;align-items:center;}
+.adj button{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;cursor:pointer;}
+.note{font-size:0.68rem;color:var(--sub);text-align:center;margin-top:18px;line-height:1.5;}
+.empty{color:var(--sub);font-size:0.82rem;text-align:center;padding:10px 0;}
+</style>
+</head>
+<body>
+<header>
+<h1>🌙 なにわ男子「Moonlit」予約・交換管理</h1>
+<p>10/21発売 ｜ 予約枚数・特典の集計から交換管理まで</p>
+</header>
+<nav>
+<button class="tabbtn active" data-tab="reg">予約登録</button>
+<button class="tabbtn" data-tab="stat">集計・不足チェック</button>
+<button class="tabbtn" data-tab="ex">交換管理</button>
+</nav>
+<main>
+
+<section id="reg" class="tab active">
+<div class="card">
+<h2>予約を追加</h2>
+<label>予約形態</label>
+<select id="f-type">
+<option value="初回1">初回限定盤1（透明ソロカードセット）</option>
+<option value="初回2">初回限定盤2（缶バッジ）</option>
+<option value="通常">通常盤（トレカパック）</option>
+</select>
+
+<label>予約サイト・店舗</label>
+<select id="f-store-select" onchange="onStoreChange()">
+<optgroup label="EDITION1">
+<option data-ed="1">TOWER RECORDS</option>
+<option data-ed="1">WonderGOO / 新星堂</option>
+<option data-ed="1">Neowing CDJapan</option>
+<option data-ed="1">その他CDショップ（EDITION1系）</option>
+</optgroup>
+<optgroup label="EDITION2">
+<option data-ed="2">楽天ブックス</option>
+<option data-ed="2">HMV</option>
+<option data-ed="2">ぐるぐる王国</option>
+<option data-ed="2">TSUTAYA RECORDS</option>
+</optgroup>
+<optgroup label="EDITION3">
+<option data-ed="3">Amazon</option>
+<option data-ed="3">セブンネット</option>
+<option data-ed="3">山野楽器</option>
+</optgroup>
+<option value="__free__">その他（自由入力する）</option>
+</select>
+<input type="text" id="f-store-text" style="display:none;margin-top:6px" placeholder="店舗名を入力してください">
+<div id="ed-manual" style="display:none;margin-top:6px">
+<label>対応エディション（通常盤の特典判定用）</label>
+<select id="f-ed-manual" onchange="updateEdPreview()">
+<option value="1">EDITION1</option>
+<option value="2">EDITION2</option>
+<option value="3">EDITION3</option>
+</select>
+</div>
+<div id="ed-preview" style="margin-top:6px"></div>
+
+<label>枚数</label>
+<input type="number" id="f-qty" min="1" value="1">
+<label>単価（円・任意）</label>
+<input type="number" id="f-price" min="0" placeholder="未入力可">
+<label>メモ（任意）</label>
+<input type="text" id="f-memo" placeholder="例：友人と共同購入 など">
+<button class="btn" onclick="addRes()">予約を追加</button>
+</div>
+
+<div class="card">
+<h2>自分の予約</h2>
+<div id="res-list"><p class="empty">まだ予約が登録されていません</p></div>
+</div>
+</section>
+
+<section id="stat" class="tab">
+<div class="card">
+<h2>予約集計</h2>
+<div class="stat-grid">
+<div class="stat"><b id="s-qty">0</b><span>合計枚数</span></div>
+<div class="stat"><b id="s-price">¥0</b><span>合計金額</span></div>
+<div class="stat"><b id="s-store">0</b><span>購入先数</span></div>
+</div>
+</div>
+<div class="card"><h2>形態別の枚数</h2><div id="s-type"><p class="empty">データなし</p></div></div>
+<div class="card"><h2>店舗別の枚数</h2><div id="s-shop"><p class="empty">データなし</p></div></div>
+<div class="card"><h2>もらえる特典の集計</h2><div id="s-gift"><p class="empty">データなし</p></div></div>
+</section>
+
+<section id="ex" class="tab">
+<div class="card">
+<h2>自担を選択</h2>
+<select id="oshi-select" onchange="renderExchange()">
+<option value="">選択しない</option>
+</select>
+<p style="font-size:0.72rem;color:var(--sub);margin-top:8px">予約から自動計算された所持数に、交換で増減した分を＋／－で調整できます。</p>
+</div>
+<div class="card">
+<h2>コレクション状況</h2>
+<table><thead><tr><th>アイテム</th><th>区分</th><th>所持数</th></tr></thead><tbody id="ex-body"></tbody></table>
+</div>
+</section>
+
+</main>
+<p class="note">予約情報・交換情報はこの端末のブラウザに保存されます。他の人とデータ共有はされません。<br>※こちらはファンが作成・運営する非公式ツールです。公式とは一切関係ありません。</p>
+
+<script>
+const EDITIONS = {
+  1: ["道枝ぴょん佑", "藤原ぴょん一郎", "なにわ男子 Moon Hourカード"],
+  2: ["高橋ぴょん平", "ぴょん橋和也", "なにわ男子 Magic Hourカード"],
+  3: ["西畑大ぴょん", "大ウサ流星", "長尾ラビッ杜"]
+};
+const MEMBER_NAMES = ["道枝ぴょん佑","藤原ぴょん一郎","高橋ぴょん平","ぴょん橋和也","西畑大ぴょん","大ウサ流星","長尾ラビッ杜"];
+const ITEM_INITIAL1 = "透明ソロカードセット（初回限定盤1特典）";
+const ITEM_INITIAL2 = "お月さま形むぎゅっと缶バッジ（初回限定盤2特典）";
+
+let reservations = JSON.parse(localStorage.getItem('moonlit_res')||'[]');
+let adjustments = JSON.parse(localStorage.getItem('moonlit_adj')||'{}');
+
+function save(){
+  localStorage.setItem('moonlit_res', JSON.stringify(reservations));
+  localStorage.setItem('moonlit_adj', JSON.stringify(adjustments));
+}
+
+document.querySelectorAll('.tabbtn').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(b.dataset.tab).classList.add('active');
+    if(b.dataset.tab==='stat') renderStats();
+    if(b.dataset.tab==='ex') renderExchange();
+  };
+});
+
+const PRICES = {'初回1':1650, '初回2':1650, '通常':1320};
+const typeSel = document.getElementById('f-type');
+const storeSel = document.getElementById('f-store-select');
+
+typeSel.onchange = ()=>{
+  document.getElementById('f-price').value = PRICES[typeSel.value];
+  onStoreChange();
+};
+document.getElementById('f-price').value = PRICES[typeSel.value];
+
+function onStoreChange(){
+  const opt = storeSel.selectedOptions[0];
+  const isFree = opt.value==='__free__';
+  document.getElementById('f-store-text').style.display = isFree? 'block':'none';
+  const isNormal = typeSel.value==='通常';
+  document.getElementById('ed-manual').style.display = (isFree && isNormal)? 'block':'none';
+  updateEdPreview();
+}
+
+function updateEdPreview(){
+  const preview = document.getElementById('ed-preview');
+  if(typeSel.value!=='通常'){ preview.innerHTML=''; return; }
+  const opt = storeSel.selectedOptions[0];
+  const ed = opt.value==='__free__'? document.getElementById('f-ed-manual').value : opt.dataset.ed;
+  preview.innerHTML = '<span class="tag">EDITION'+ed+'</span> ' + EDITIONS[ed].join(' / ');
+}
+onStoreChange();
+
+function addRes(){
+  const type = typeSel.value;
+  const qty = parseInt(document.getElementById('f-qty').value)||1;
+  const price = parseInt(document.getElementById('f-price').value)||0;
+  const memo = document.getElementById('f-memo').value.trim();
+  const opt = storeSel.selectedOptions[0];
+  let store, edition=null;
+  if(opt.value==='__free__'){
+    store = document.getElementById('f-store-text').value.trim() || '（未入力）';
+    if(type==='通常') edition = document.getElementById('f-ed-manual').value;
+  } else {
+    store = opt.textContent;
+    if(type==='通常') edition = opt.dataset.ed;
+  }
+  reservations.push({id:Date.now(), type, store, edition, qty, price, memo});
+  save(); renderResList();
+  document.getElementById('f-memo').value=''; document.getElementById('f-store-text').value='';
+}
+
+function delRes(id){
+  reservations = reservations.filter(r=>r.id!==id);
+  save(); renderResList();
+}
+
+function typeLabel(r){
+  if(r.type==='初回1') return '初回限定盤1';
+  if(r.type==='初回2') return '初回限定盤2';
+  return '通常盤（EDITION'+r.edition+'）';
+}
+
+function renderResList(){
+  const el = document.getElementById('res-list');
+  if(reservations.length===0){ el.innerHTML='<p class="empty">まだ予約が登録されていません</p>'; return; }
+  el.innerHTML = reservations.map(r=>
+    '<div class="row"><div>'+typeLabel(r)+'｜'+r.store+'｜'+r.qty+'枚'+(r.price?'｜¥'+(r.price*r.qty).toLocaleString():'')+
+    (r.memo?'<br><span style="color:var(--sub);font-size:0.75rem">'+r.memo+'</span>':'')+
+    '</div><button class="del" onclick="delRes('+r.id+')">削除</button></div>'
+  ).join('');
+}
+
+function renderStats(){
+  const totalQty = reservations.reduce((s,r)=>s+r.qty,0);
+  const totalPrice = reservations.reduce((s,r)=>s+r.qty*r.price,0);
+  const shops = new Set(reservations.map(r=>r.store));
+  document.getElementById('s-qty').textContent = totalQty;
+  document.getElementById('s-price').textContent = '¥'+totalPrice.toLocaleString();
+  document.getElementById('s-store').textContent = shops.size;
+
+  const byType = {};
+  reservations.forEach(r=>{ const l=typeLabel(r); byType[l]=(byType[l]||0)+r.qty; });
+  document.getElementById('s-type').innerHTML = Object.keys(byType).length? Object.entries(byType).map(([k,v])=>
+    '<div class="row"><span>'+k+'</span><span>'+v+'枚</span></div>').join('') : '<p class="empty">データなし</p>';
+
+  const byShop = {};
+  reservations.forEach(r=>{ byShop[r.store]=(byShop[r.store]||0)+r.qty; });
+  document.getElementById('s-shop').innerHTML = Object.keys(byShop).length? Object.entries(byShop).map(([k,v])=>
+    '<div class="row"><span>'+k+'</span><span>'+v+'枚</span></div>').join('') : '<p class="empty">データなし</p>';
+
+  const gifts = computeAutoCounts();
+  document.getElementById('s-gift').innerHTML = Object.keys(gifts).length? Object.entries(gifts).map(([k,v])=>
+    '<div class="row"><span>'+k+'</span><span>'+v+'枚</span></div>').join('') : '<p class="empty">データなし</p>';
+}
+
+function computeAutoCounts(){
+  const counts = {};
+  reservations.forEach(r=>{
+    if(r.type==='初回1') counts[ITEM_INITIAL1]=(counts[ITEM_INITIAL1]||0)+r.qty;
+    else if(r.type==='初回2') counts[ITEM_INITIAL2]=(counts[ITEM_INITIAL2]||0)+r.qty;
+    else if(r.type==='通常' && r.edition) EDITIONS[r.edition].forEach(name=>{
+      counts[name]=(counts[name]||0)+r.qty;
+    });
+  });
+  return counts;
+}
+
+const oshiSel = document.getElementById('oshi-select');
+MEMBER_NAMES.forEach(n=>{
+  const o=document.createElement('option'); o.value=n; o.textContent=n; oshiSel.appendChild(o);
+});
+
+function adjust(name, delta){
+  adjustments[name] = (adjustments[name]||0) + delta;
+  save(); renderExchange();
+}
+
+function renderExchange(){
+  const auto = computeAutoCounts();
+  const oshi = oshiSel.value;
+  const allItems = [
+    [ITEM_INITIAL1,'初回1特典'],
+    [ITEM_INITIAL2,'初回2特典'],
+    ...EDITIONS[1].map(n=>[n, n.includes('カード')&&!MEMBER_NAMES.includes(n)? 'EDITION1 ユニット':'EDITION1']),
+    ...EDITIONS[2].map(n=>[n,'EDITION2']),
+    ...EDITIONS[3].map(n=>[n,'EDITION3'])
+  ];
+  document.getElementById('ex-body').innerHTML = allItems.map(([name,cat])=>{
+    const total = (auto[name]||0) + (adjustments[name]||0);
+    const isOshi = name===oshi;
+    return '<tr'+(isOshi?' class="oshi-row"':'')+'><td>'+name+(isOshi?' ⭐':'')+'</td><td><span class="tag">'+cat+'</span></td>'+
+    '<td><div class="adj"><button onclick="adjust(\''+name.replace(/'/g,"\\'")+'\',-1)">−</button>'+
+    '<span'+(total===0?' class="have0"':'')+'>'+total+'</span>'+
+    '<button onclick="adjust(\''+name.replace(/'/g,"\\'")+'\',1)">＋</button></div></td></tr>';
+  }).join('');
+}
+
+renderResList();
+renderExchange();
+</script>
+</body>
+</html>
