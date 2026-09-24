@@ -76,6 +76,7 @@ th{color:var(--sub);font-weight:600;font-size:0.72rem;}
 <option value="初回1">初回限定盤1（透明ソロカードセット）</option>
 <option value="初回2">初回限定盤2（缶バッジ）</option>
 <option value="通常">通常盤（トレカパック）</option>
+<option value="ファミクラ">ファミクラストア盤</option>
 </select>
 
 <label>予約サイト・店舗</label>
@@ -168,6 +169,7 @@ const EDITIONS = {
 const MEMBER_NAMES = ["道枝ぴょん佑","藤原ぴょん一郎","高橋ぴょん平","ぴょん橋和也","西畑大ぴょん","大ウサ流星","長尾ラビッ杜"];
 const ITEM_INITIAL1 = "透明ソロカードセット（初回限定盤1特典）";
 const ITEM_INITIAL2 = "お月さま形むぎゅっと缶バッジ（初回限定盤2特典）";
+const ITEMS_FAMICLUB = ["Moonlitオリジナル喜怒哀楽ガーランド", "お月さま型スペシャル折りポスター"];
 
 let reservations = JSON.parse(localStorage.getItem('moonlit_res')||'[]');
 let adjustments = JSON.parse(localStorage.getItem('moonlit_adj')||'{}');
@@ -188,7 +190,7 @@ document.querySelectorAll('.tabbtn').forEach(b=>{
   };
 });
 
-const PRICES = {'初回1':1650, '初回2':1650, '通常':1320};
+const PRICES = {'初回1':1650, '初回2':1650, '通常':1320, 'ファミクラ':2640};
 const typeSel = document.getElementById('f-type');
 const storeSel = document.getElementById('f-store-select');
 
@@ -245,6 +247,7 @@ function delRes(id){
 function typeLabel(r){
   if(r.type==='初回1') return '初回限定盤1';
   if(r.type==='初回2') return '初回限定盤2';
+  if(r.type==='ファミクラ') return 'ファミクラストア盤';
   return '通常盤（EDITION'+r.edition+'）';
 }
 
@@ -288,6 +291,9 @@ function computeAutoCounts(){
     if(r.noGift) return;
     if(r.type==='初回1') counts[ITEM_INITIAL1]=(counts[ITEM_INITIAL1]||0)+r.qty;
     else if(r.type==='初回2') counts[ITEM_INITIAL2]=(counts[ITEM_INITIAL2]||0)+r.qty;
+    else if(r.type==='ファミクラ') ITEMS_FAMICLUB.forEach(name=>{
+      counts[name]=(counts[name]||0)+r.qty;
+    });
     else if(r.type==='通常' && r.edition) EDITIONS[r.edition].forEach(name=>{
       counts[name]=(counts[name]||0)+r.qty;
     });
@@ -311,6 +317,7 @@ function renderExchange(){
   const allItems = [
     [ITEM_INITIAL1,'初回1特典'],
     [ITEM_INITIAL2,'初回2特典'],
+    ...ITEMS_FAMICLUB.map(n=>[n,'ファミクラ特典']),
     ...EDITIONS[1].map(n=>[n, n.includes('カード')&&!MEMBER_NAMES.includes(n)? 'EDITION1 ユニット':'EDITION1']),
     ...EDITIONS[2].map(n=>[n,'EDITION2']),
     ...EDITIONS[3].map(n=>[n,'EDITION3'])
