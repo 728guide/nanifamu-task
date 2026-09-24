@@ -116,6 +116,9 @@ th{color:var(--sub);font-weight:600;font-size:0.72rem;}
 <input type="number" id="f-price" min="0" placeholder="未入力可">
 <label>メモ（任意）</label>
 <input type="text" id="f-memo" placeholder="例：友人と共同購入 など">
+<label style="display:flex;align-items:center;gap:6px;margin-top:10px">
+<input type="checkbox" id="f-nogift" style="width:auto"> この予約には特典がつかない（特典なし）
+</label>
 <button class="btn" onclick="addRes()">予約を追加</button>
 </div>
 
@@ -218,6 +221,7 @@ function addRes(){
   const qty = parseInt(document.getElementById('f-qty').value)||1;
   const price = parseInt(document.getElementById('f-price').value)||0;
   const memo = document.getElementById('f-memo').value.trim();
+  const noGift = document.getElementById('f-nogift').checked;
   const opt = storeSel.selectedOptions[0];
   let store, edition=null;
   if(opt.value==='__free__'){
@@ -227,9 +231,10 @@ function addRes(){
     store = opt.textContent;
     if(type==='通常') edition = opt.dataset.ed;
   }
-  reservations.push({id:Date.now(), type, store, edition, qty, price, memo});
+  reservations.push({id:Date.now(), type, store, edition, qty, price, memo, noGift});
   save(); renderResList();
   document.getElementById('f-memo').value=''; document.getElementById('f-store-text').value='';
+  document.getElementById('f-nogift').checked=false;
 }
 
 function delRes(id){
@@ -248,6 +253,7 @@ function renderResList(){
   if(reservations.length===0){ el.innerHTML='<p class="empty">まだ予約が登録されていません</p>'; return; }
   el.innerHTML = reservations.map(r=>
     '<div class="row"><div>'+typeLabel(r)+'｜'+r.store+'｜'+r.qty+'枚'+(r.price?'｜¥'+(r.price*r.qty).toLocaleString():'')+
+    (r.noGift?' <span class="tag">特典なし</span>':'')+
     (r.memo?'<br><span style="color:var(--sub);font-size:0.75rem">'+r.memo+'</span>':'')+
     '</div><button class="del" onclick="delRes('+r.id+')">削除</button></div>'
   ).join('');
@@ -279,6 +285,7 @@ function renderStats(){
 function computeAutoCounts(){
   const counts = {};
   reservations.forEach(r=>{
+    if(r.noGift) return;
     if(r.type==='初回1') counts[ITEM_INITIAL1]=(counts[ITEM_INITIAL1]||0)+r.qty;
     else if(r.type==='初回2') counts[ITEM_INITIAL2]=(counts[ITEM_INITIAL2]||0)+r.qty;
     else if(r.type==='通常' && r.edition) EDITIONS[r.edition].forEach(name=>{
